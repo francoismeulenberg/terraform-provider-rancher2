@@ -17,6 +17,7 @@ type CloudCredential struct {
 	LinodeCredentialConfig        *linodeCredentialConfig        `json:"linodecredentialConfig,omitempty" yaml:"linodecredentialConfig,omitempty"`
 	OpenstackCredentialConfig     *openstackCredentialConfig     `json:"openstackcredentialConfig,omitempty" yaml:"openstackcredentialConfig,omitempty"`
 	VmwarevsphereCredentialConfig *vmwarevsphereCredentialConfig `json:"vmwarevspherecredentialConfig,omitempty" yaml:"vmwarevspherecredentialConfig,omitempty"`
+	ExoscaleCredentialConfig      *exoscaleCredentialConfig      `json:"exoscalecredentialConfig,omitempty" yaml:"exoscalecredentialConfig,omitempty"`
 }
 
 var allCloudCredentialDriverConfigFields = []string{
@@ -28,7 +29,8 @@ var allCloudCredentialDriverConfigFields = []string{
 	"linode_credential_config",
 	"openstack_credential_config",
 	"s3_credential_config",
-	"vsphere_credential_config"}
+	"vsphere_credential_config",
+	"exoscale_credential_config"}
 
 //Schemas
 
@@ -125,6 +127,15 @@ func cloudCredentialFields() map[string]*schema.Schema {
 			ConflictsWith: getConflicts(allCloudCredentialDriverConfigFields, "vsphere_credential_config"),
 			Elem: &schema.Resource{
 				Schema: cloudCredentialVsphereFields(),
+			},
+		},
+		"exoscale_credential_config": {
+			Type:          schema.TypeList,
+			MaxItems:      1,
+			Optional:      true,
+			ConflictsWith: getConflicts(allCloudCredentialDriverConfigFields, "exoscale_credential_config"),
+			Elem: &schema.Resource{
+				Schema: cloudCredentialExoscaleFields(),
 			},
 		},
 	}

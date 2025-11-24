@@ -19,6 +19,7 @@ const (
 	linodeConfigDriver        = "linode"
 	openstackConfigDriver     = "openstack"
 	vmwarevsphereConfigDriver = "vmwarevsphere"
+	exoscaleConfigDriver      = "exoscale"
 )
 
 func resourceRancher2CloudCredential() *schema.Resource {
